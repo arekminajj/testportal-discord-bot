@@ -4,15 +4,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-path = "C:\Program Files (x86)\chromedriver.exe"
-driver = webdriver.Chrome(path)
-url = "https://www.testportal.pl/test.html?t=4vkbZ4vVNZNd"
-sleeptime = 5
-
 def takeScreenshot(questionNumber):
-    driver.save_screenshot('screenshot' + str(questionNumber) + '.png')
+    print("")
+    #driver.save_screenshot('screenshots/screenshot' + str(questionNumber) + '.png')
 
-def getTest():
+async def getTest(url):
+    path = "C:\Program Files (x86)\chromedriver.exe"
+    driver = webdriver.Chrome(path)
+    sleeptime = 5
     driver.get(url)
 
     firstName = driver.find_element_by_name("firstName")
@@ -40,7 +39,7 @@ def getTest():
     finally:
         print("")
 
-    takeScreenshot("1")
+    driver.save_screenshot('screenshots/screenshot' + str(1) + '.png')
 
     submitButton.click()
 
@@ -52,7 +51,7 @@ def getTest():
             EC.presence_of_element_located((By.CLASS_NAME, "question_header_content")))
         finally:
             print("") 
-        takeScreenshot(str(x+2))
+        driver.save_screenshot('screenshots/screenshot' + str(x+2) + '.png')
         submitButton.click()
-
     driver.quit()
+    
