@@ -4,10 +4,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-def takeScreenshot(questionNumber):
-    print("")
-    #driver.save_screenshot('screenshots/screenshot' + str(questionNumber) + '.png')
-
 async def getTest(url):
     path = "C:\Program Files (x86)\chromedriver.exe"
     driver = webdriver.Chrome(path)
@@ -35,7 +31,17 @@ async def getTest(url):
         time.sleep(sleeptime)
         submitButton = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "mdc-button--outlined")))
         questions = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "question_header_content")))
-        numberOfQuestions = int(questions.text[-1])
+        #Pytanie 1/5 , count = 11
+        #Pytanie 1/15, count = 12
+        #CHCECK IF NUMBER OF QUESTIONS IS A TWO-DIGIT NUMBER
+        if(len(questions.text)==11):
+            isMoreThanNineQuestions = False
+        else:
+            isMoreThanNineQuestions = True
+        if(isMoreThanNineQuestions==False):
+            numberOfQuestions = int(questions.text[-1])
+        else:
+            numberOfQuestions = int(questions.text[-2] + questions.text[-1])
     finally:
         print("")
 
