@@ -35,10 +35,6 @@ async def getTest(url):
         #Pytanie 1/15, count = 12
         #CHCECK IF NUMBER OF QUESTIONS IS A TWO-DIGIT NUMBER
         if(len(questions.text)==11):
-            isMoreThanNineQuestions = False
-        else:
-            isMoreThanNineQuestions = True
-        if(isMoreThanNineQuestions==False):
             numberOfQuestions = int(questions.text[-1])
         else:
             numberOfQuestions = int(questions.text[-2] + questions.text[-1])
